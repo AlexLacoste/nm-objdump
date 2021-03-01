@@ -88,7 +88,7 @@ static void handle_flag(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
 
 int handle_64(char *file, char *binary, void *tmp, utils_t utils)
 {
-    Elf64_Ehdr *elf_ehdr = tmp; // peut être il faudra cast
+    Elf64_Ehdr *elf_ehdr = tmp;
     Elf64_Shdr *elf_shdr = tmp
         + elf_ehdr->e_shoff; // peut être il faudra cast; pointe sur le header
 
@@ -99,5 +99,6 @@ int handle_64(char *file, char *binary, void *tmp, utils_t utils)
     printf("\n%s:     file format elf64-x86-64\n", file);
     handle_flag(elf_ehdr, elf_shdr);
     printf("start address 0x%016lx\n\n", elf_ehdr->e_entry);
+    handle_sections_64(elf_ehdr, elf_shdr);
     return 0;
 }

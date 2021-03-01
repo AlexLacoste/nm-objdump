@@ -19,5 +19,6 @@ typedef struct utils_s {
 int my_objdump(char *file, char *binary);
 int print_help(char *binary);
 int handle_64(char *file, char *binary, void *tmp, utils_t utils);
+void handle_sections_64(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr);
 
 #endif /* !OBJDUMP_H_ */

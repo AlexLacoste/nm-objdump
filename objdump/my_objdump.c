@@ -17,7 +17,7 @@
 
 static int handle_open(char *file, char *binary, utils_t *utils)
 {
-    // TODO: gestion d'erreur -> permissio denied etc
+    // TODO: gestion d'erreur -> permission denied etc
     (void)binary;
     utils->fd = open(file, O_RDONLY);
     if (utils->fd == -1) {
@@ -37,7 +37,7 @@ static void *handle_mmap(char *file, utils_t utils)
         return NULL;
     tmp = mmap(NULL, size, PROT_READ, MAP_SHARED, utils.fd, 0);
     if (!tmp) {
-        // handle error not ordinary file
+        // TODO: handle error not ordinary file
     }
     return tmp;
 }
