@@ -18,10 +18,9 @@
 static int handle_open(char *file, char *binary, utils_t *utils)
 {
     // TODO: gestion d'erreur -> permission denied etc
-    (void)binary;
     utils->fd = open(file, O_RDONLY);
     if (utils->fd == -1) {
-        fprintf(stderr, "%s: '%s' %s\n", binary, file, "No such file");
+        fprintf(stderr, "%s: '%s': %s\n", binary, file, "No such file");
         return 84;
     }
     return 0;
