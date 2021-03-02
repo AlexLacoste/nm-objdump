@@ -20,17 +20,17 @@ static void display_hexa(
         if (i % 4 == 0)
             printf(" ");
         if (i >= rest) {
+            (i % 4 != 0 && elf_shdr.sh_size - rest + 16 >= elf_shdr.sh_size)
+                ? printf(" ")
+                : 0;
             check_end = true;
             break;
-        }
-        printf("%02x",
+        } printf("%02x",
             (unsigned char)((char *)elf_ehdr
                 + elf_shdr.sh_offset)[elf_shdr.sh_size - rest + i]);
-    }
-    if (check_end) {
-        for (; i < 16; i++) {
+    } if (check_end) {
+        for (; i < 16; i++)
             (i % 4 == 0) ? printf("   ") : printf("  ");
-        }
     }
     (check_end) ? printf(" ") : printf("  ");
 }
