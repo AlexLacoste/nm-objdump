@@ -57,7 +57,7 @@ int my_objdump(char *file, char *binary)
     if (((Elf64_Ehdr *)tmp)->e_ident[EI_CLASS] == ELFCLASS64)
         ret = handle_64(file, binary, tmp, utils);
     else {
-        // handle 32
+        ret = handle_32(file, binary, tmp, utils);
     }
     close(utils.fd);
     return ret;

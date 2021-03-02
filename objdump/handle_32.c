@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2021
 ** B-PSU-400-BDX-4-1-nmobjdump-alexandre.lacoste
 ** File description:
-** handle_64
+** handle_32
 */
 
 #include <stdbool.h>
@@ -11,7 +11,7 @@
 #include "../include/flags.h"
 #include "../include/objdump.h"
 
-static int check_format_64(char *file, char *binary, Elf64_Ehdr *elf_ehdr)
+static int check_format_32(char *file, char *binary, Elf32_Ehdr *elf_ehdr)
 {
     if (elf_ehdr->e_ident[EI_MAG0] != ELFMAG0
         || elf_ehdr->e_ident[EI_MAG1] != ELFMAG1
@@ -23,7 +23,7 @@ static int check_format_64(char *file, char *binary, Elf64_Ehdr *elf_ehdr)
     return 0;
 }
 
-static void print_flag2(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr, bool check)
+static void print_flag2(Elf32_Ehdr *elf_ehdr, Elf32_Shdr *elf_shdr, bool check)
 {
     for (int i = 0; i < elf_ehdr->e_shnum; i++) {
         if (elf_shdr[i].sh_type == SHT_SYMTAB) {
@@ -47,7 +47,7 @@ static void print_flag2(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr, bool check)
     }
 }
 
-static void print_flag(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
+static void print_flag(Elf32_Ehdr *elf_ehdr, Elf32_Shdr *elf_shdr)
 {
     bool check = false;
 
@@ -65,11 +65,11 @@ static void print_flag(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
     printf("\n");
 }
 
-static void handle_flag_64(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
+static void handle_flag_32(Elf32_Ehdr *elf_ehdr, Elf32_Shdr *elf_shdr)
 {
     unsigned int flag = 0;
 
-    printf("architecture: i386:x86-64, flags ");
+    printf("architecture: i386, flags ");
     if (elf_ehdr->e_type == ET_DYN)
         flag |= DYNAMIC;
     if (elf_ehdr->e_type == ET_EXEC)
@@ -85,19 +85,18 @@ static void handle_flag_64(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
     printf("0x%08x:\n", flag);
     print_flag(elf_ehdr, elf_shdr);
 }
-
-int handle_64(char *file, char *binary, void *tmp, utils_t utils)
+int handle_32(char *file, char *binary, void *tmp, utils_t utils)
 {
-    Elf64_Ehdr *elf_ehdr = tmp;
-    Elf64_Shdr *elf_shdr = tmp + elf_ehdr->e_shoff;
+    Elf32_Ehdr *elf_ehdr = tmp;
+    Elf32_Shdr *elf_shdr = tmp + elf_ehdr->e_shoff;
 
     (void)utils; //
-    if (check_format_64(file, binary, elf_ehdr) == 84)
+    if (check_format_32(file, binary, elf_ehdr) == 84)
         return 84;
     // TODO: check truncated
-    printf("\n%s:     file format elf64-x86-64\n", file);
-    handle_flag_64(elf_ehdr, elf_shdr);
-    printf("start address 0x%016lx\n\n", elf_ehdr->e_entry);
-    handle_sections_64(elf_ehdr, elf_shdr);
+    printf("\n%s:     file format elf32-i386\n", file);
+    handle_flag_32(elf_ehdr, elf_shdr);
+    printf("start address 0x%016x\n\n", elf_ehdr->e_entry);
+    handle_sections_32(elf_ehdr, elf_shdr);
     return 0;
 }

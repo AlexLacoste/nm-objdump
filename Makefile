@@ -19,6 +19,8 @@ SRC_NM			= 	$(addprefix nm/, $(FILES_NM))
 FILES_OBJDUMP	=	main.c					\
 					handle_64.c				\
 					handle_sections_64.c	\
+					handle_32.c				\
+					handle_sections_32.c	\
 					help.c					\
 					my_objdump.c
 
