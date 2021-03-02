@@ -28,22 +28,22 @@ static void print_flag2(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr, bool check)
     for (int i = 0; i < elf_ehdr->e_shnum; i++) {
         if (elf_shdr[i].sh_type == SHT_SYMTAB) {
             if (check)
-                write(1, ", ", 2);
-            write(1, "HAS_SYMS", 8);
+                printf(", ");
+            printf("HAS_SYMS");
             check = true;
             break;
         }
     }
     if (elf_ehdr->e_type == ET_DYN) {
         if (check)
-            write(1, ", ", 2);
-        write(1, "DYNAMIC", 7);
+            printf(", ");
+        printf("DYNAMIC");
         check = true;
     }
     if (elf_ehdr->e_phnum != 0) {
         if (check)
-            write(1, ", ", 2);
-        write(1, "D_PAGED", 7);
+            printf(", ");
+        printf("D_PAGED");
     }
 }
 
@@ -52,13 +52,13 @@ static void print_flag(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
     bool check = false;
 
     if (elf_ehdr->e_type == ET_REL) {
-        write(1, "HAS_RELOC", 9);
+        printf("HAS_RELOC");
         check = true;
     }
     if (elf_ehdr->e_type == ET_EXEC) {
         if (check)
-            write(1, ", ", 2);
-        write(1, "EXEC_P", 6);
+            printf(", ");
+        printf("EXEC_P");
         check = true;
     }
     print_flag2(elf_ehdr, elf_shdr, check);
@@ -69,7 +69,7 @@ static void handle_flag(Elf64_Ehdr *elf_ehdr, Elf64_Shdr *elf_shdr)
 {
     unsigned int flag = 0;
 
-    write(1, "architecture: i386:x86-64, flags ", 33);
+    printf("architecture: i386:x86-64, flags ");
     if (elf_ehdr->e_type == ET_DYN)
         flag |= DYNAMIC;
     if (elf_ehdr->e_type == ET_EXEC)
