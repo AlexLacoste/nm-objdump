@@ -38,6 +38,10 @@ $(NAME_NM):	$(OBJ_NM)
 $(NAME_OBJDUMP):	$(OBJ_OBJDUMP)
 	gcc -o $(NAME_OBJDUMP) $(OBJ_OBJDUMP)
 
+nm:	$(NAME_NM)
+
+objdump:	$(NAME_OBJDUMP)
+
 # tests_run:
 # 	@rm -rf *.gc*
 # 	gcc -o unit_test $(TESTS) -I./include --coverage -lcriterion
