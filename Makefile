@@ -6,7 +6,7 @@
 ##
 
 
-CFLAGS			=	-I./include -Wall -Wextra -Werror
+CFLAGS			=	-I./include -Wall -Wextra
 
 NAME_NM			=	my_nm
 
@@ -17,10 +17,8 @@ FILES_NM		=	main.c
 SRC_NM			= 	$(addprefix nm/, $(FILES_NM))
 
 FILES_OBJDUMP	=	main.c					\
-					handle_64.c				\
-					handle_sections_64.c	\
-					handle_32.c				\
-					handle_sections_32.c	\
+					handle_header.c			\
+					handle_sections.c		\
 					help.c					\
 					my_objdump.c
 
