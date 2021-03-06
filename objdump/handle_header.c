@@ -17,7 +17,7 @@ static int check_format(char *file, char *binary, utils_t utils)
     || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG1])) != ELFMAG1
     || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG2])) != ELFMAG2
     || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG3])) != ELFMAG3) {
-        fprintf(stderr, "%s: %s: File format not recognized\n", binary, file);
+        fprintf(stderr, "%s: %s: file format not recognized\n", binary, file);
         return 84;
     }
     return 0;

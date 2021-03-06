@@ -32,16 +32,18 @@ static void *handle_mmap(char *file, char *binary, utils_t utils, size_t size)
         close(utils.fd);
         return NULL;
     }
-    if (((Elf64_Ehdr *)tmp)->e_shnum * ((Elf64_Ehdr *)tmp)->e_shentsize
-                + ((Elf64_Ehdr *)tmp)->e_shoff
-            != size
-        && ((Elf32_Ehdr *)tmp)->e_shnum * ((Elf32_Ehdr *)tmp)->e_shentsize
-                + ((Elf32_Ehdr *)tmp)->e_shoff
-            != size) {
-        fprintf(stderr, "%s: %s: %s\n", binary, file, "file truncated");
-        close(utils.fd);
-        return NULL;
-    }
+    // TODO: changer le check truncated
+
+    // if (((Elf64_Ehdr *)tmp)->e_shnum * ((Elf64_Ehdr *)tmp)->e_shentsize
+    //             + ((Elf64_Ehdr *)tmp)->e_shoff
+    //         != size
+    //     && ((Elf32_Ehdr *)tmp)->e_shnum * ((Elf32_Ehdr *)tmp)->e_shentsize
+    //             + ((Elf32_Ehdr *)tmp)->e_shoff
+    //         != size) {
+    //     fprintf(stderr, "%s: %s: %s\n", binary, file, "file truncated");
+    //     close(utils.fd);
+    //     return NULL;
+    // }
     return tmp;
 }
 
