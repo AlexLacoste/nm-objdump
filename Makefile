@@ -12,7 +12,10 @@ NAME_NM			=	my_nm
 
 NAME_OBJDUMP	=	my_objdump
 
-FILES_NM		=	main.c
+FILES_NM		=	main.c					\
+					help.c					\
+					my_nm.c					\
+					handle_nm.c
 
 SRC_NM			= 	$(addprefix nm/, $(FILES_NM))
 

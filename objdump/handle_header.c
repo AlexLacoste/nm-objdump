@@ -11,6 +11,14 @@
 #include "../include/flags.h"
 #include "../include/objdump.h"
 
+static const handle_flag_t handle_print_flag[] = {
+    {"HAS_RELOC", HAS_RELOC},
+    {"EXEC_P", EXEC_P},
+    {"HAS_SYMS", HAS_SYMS},
+    {"DYNAMIC", DYNAMIC},
+    {"D_PAGED", D_PAGED}
+};
+
 static int check_format(char *file, char *binary, utils_t utils)
 {
     if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG0])) != ELFMAG0
@@ -23,51 +31,24 @@ static int check_format(char *file, char *binary, utils_t utils)
     return 0;
 }
 
-static void print_flag2(utils_t utils, bool check, void *elf_shdr)
-{
-    for (int i = 0; i < (FORMAT_EHDR(utils.elf_64, utils.ptr, e_shnum)); i++) {
-        if ((FORMAT_SHDR(utils.elf_64, elf_shdr, i, sh_type)) == SHT_SYMTAB) {
-            if (check)
-                printf(", ");
-            printf("HAS_SYMS");
-            check = true;
-            break;
-        }
-    }
-    if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_type)) == ET_DYN) {
-        if (check)
-            printf(", ");
-        printf("DYNAMIC");
-        check = true;
-    }
-    if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_phnum)) != 0) {
-        if (check)
-            printf(", ");
-        printf("D_PAGED");
-    }
-}
-
-static void print_flag(utils_t utils, void *elf_shdr)
+static void print_flag(unsigned int flag)
 {
     bool check = false;
 
-    if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_type)) == ET_REL) {
-        printf("HAS_RELOC");
-        check = true;
+    for (size_t i = 0; i < 5; i++) {
+        if (flag & handle_print_flag[i].flag && !check) {
+            printf("%s", handle_print_flag[i].display);
+            check = true;
+        } else if (flag & handle_print_flag[i].flag)
+            printf(", %s", handle_print_flag[i].display);
     }
-    if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_type)) == ET_EXEC) {
-        if (check)
-            printf(", ");
-        printf("EXEC_P");
-        check = true;
-    }
-    print_flag2(utils, check, elf_shdr);
     printf("\n");
 }
 
 static void handle_flag(utils_t utils, void *elf_shdr)
 {
     unsigned int flag = 0;
+    size_t type_sh = 0;
 
     printf("architecture: %s, flags ", utils.elf_64 ? "i386:x86-64" : "i386");
     if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_type)) == ET_DYN)
@@ -79,11 +60,12 @@ static void handle_flag(utils_t utils, void *elf_shdr)
     if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_phnum)) != 0)
         flag |= D_PAGED;
     for (int i = 0; i < (FORMAT_EHDR(utils.elf_64, utils.ptr, e_shnum)); i++) {
-        if ((FORMAT_SHDR(utils.elf_64, elf_shdr, 0, sh_type)) == SHT_SYMTAB)
+        type_sh = (FORMAT_SHDR(utils.elf_64, elf_shdr, i, sh_type));
+        if (type_sh == SHT_SYMTAB || type_sh == SHT_GNU_versym || type_sh ==
+        SHT_SUNW_syminfo || type_sh == SHT_HASH || type_sh == SHT_DYNSYM)
             flag |= HAS_SYMS;
-    }
-    printf("0x%08x:\n", flag); // TODO: better handle of flag not good value
-    print_flag(utils, elf_shdr);
+    } printf("0x%08x:\n", flag);
+    print_flag(flag);
 }
 
 int handle_objdump(char *file, char *binary, utils_t utils)

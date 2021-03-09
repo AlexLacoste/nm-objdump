@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2021
-** B-PSU-400-BDX-4-1-nmobjdump-alexandre.lacoste
+** ubuntu [Container ubuntu:latest (/hungry_bose)]
 ** File description:
 ** help
 */
