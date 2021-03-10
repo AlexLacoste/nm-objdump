@@ -12,6 +12,10 @@ NAME_NM			=	my_nm
 
 NAME_OBJDUMP	=	my_objdump
 
+SHARED_FILES	=	shared_functions.c
+
+SRC_SHARED		= 	$(addprefix shared/, $(SHARED_FILES))
+
 FILES_NM		=	main.c					\
 					help.c					\
 					my_nm.c					\
@@ -27,9 +31,9 @@ FILES_OBJDUMP	=	main.c					\
 
 SRC_OBJDUMP		= 	$(addprefix objdump/, $(FILES_OBJDUMP))
 
-OBJ_NM			=	$(SRC_NM:.c=.o)
+OBJ_NM			=	$(SRC_SHARED:.c=.o) $(SRC_NM:.c=.o)
 
-OBJ_OBJDUMP		=	$(SRC_OBJDUMP:.c=.o)
+OBJ_OBJDUMP		=	$(SRC_SHARED:.c=.o) $(SRC_OBJDUMP:.c=.o)
 
 all:	$(NAME_NM) $(NAME_OBJDUMP)
 

@@ -8,21 +8,7 @@
 #ifndef OBJDUMP_H_
 #define OBJDUMP_H_
 
-#include <elf.h>
-#include <stdbool.h>
-#include <sys/types.h>
-
-#define FORMAT_EHDR(format_64, pointer, name) \
-((format_64) ? ((Elf64_Ehdr *)pointer)->name : ((Elf32_Ehdr *)pointer)->name)
-
-#define FORMAT_SHDR(format_64, pointer, i, name) \
-((format_64) ? ((Elf64_Shdr *)pointer)[i].name : ((Elf32_Shdr *)pointer)[i].name)
-
-typedef struct utils_s {
-    int fd;
-    bool elf_64;
-    void *ptr;
-} utils_t;
+#include "shared.h"
 
 typedef struct handle_flag_s {
     char * const display;

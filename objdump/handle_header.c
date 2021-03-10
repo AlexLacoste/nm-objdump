@@ -19,18 +19,6 @@ static const handle_flag_t handle_print_flag[] = {
     {"D_PAGED", D_PAGED}
 };
 
-static int check_format(char *file, char *binary, utils_t utils)
-{
-    if ((FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG0])) != ELFMAG0
-    || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG1])) != ELFMAG1
-    || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG2])) != ELFMAG2
-    || (FORMAT_EHDR(utils.elf_64, utils.ptr, e_ident[EI_MAG3])) != ELFMAG3) {
-        fprintf(stderr, "%s: %s: file format not recognized\n", binary, file);
-        return 84;
-    }
-    return 0;
-}
-
 static void print_flag(unsigned int flag)
 {
     bool check = false;

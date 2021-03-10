@@ -12,6 +12,8 @@ int handle_nm(char *file, char *binary, utils_t utils)
     void *elf_shdr = utils.ptr +
                     (FORMAT_EHDR(utils.elf_64, utils.ptr, e_shoff));
 
+    if (check_format(file, binary, utils) == 84)
+        return 84;
     for (int i = 0; i < (FORMAT_EHDR(utils.elf_64, utils.ptr, e_shnum)); i++) {
         if ((FORMAT_SHDR(utils.elf_64, elf_shdr, i, sh_type)) == SHT_SYMTAB) {
 
