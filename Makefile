@@ -19,7 +19,8 @@ SRC_SHARED		= 	$(addprefix shared/, $(SHARED_FILES))
 FILES_NM		=	main.c					\
 					help.c					\
 					my_nm.c					\
-					handle_nm.c
+					handle_nm.c				\
+					handle_symbol.c
 
 SRC_NM			= 	$(addprefix nm/, $(FILES_NM))
 

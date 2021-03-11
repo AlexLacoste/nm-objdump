@@ -20,6 +20,9 @@
 ((format_64) ? ((Elf64_Shdr *)pointer)[i].name : \
 ((Elf32_Shdr *)pointer)[i].name)
 
+#define FORMAT_SYM(format_64, pointer, name) \
+((format_64) ? ((Elf64_Sym *)pointer)->name : ((Elf32_Sym *)pointer)->name)
+
 typedef struct utils_s {
     int fd;
     bool elf_64;

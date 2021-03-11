@@ -11,6 +11,7 @@
 #include "../include/flags.h"
 #include "../include/objdump.h"
 
+
 static const handle_flag_t handle_print_flag[] = {
     {"HAS_RELOC", HAS_RELOC},
     {"EXEC_P", EXEC_P},

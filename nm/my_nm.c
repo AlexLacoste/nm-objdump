@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include "../include/nm.h"
 
-int my_nm(char *file, char *binary)
+int my_nm(char *file, char *binary, int ac)
 {
     utils_t utils = {.fd = 0, .elf_64 = false};
     int ret = 0;
@@ -28,7 +28,7 @@ int my_nm(char *file, char *binary)
         return 84;
     if (((Elf64_Ehdr *)utils.ptr)->e_ident[EI_CLASS] == ELFCLASS64)
         utils.elf_64 = true;
-    ret = handle_nm(file, binary, utils);
+    ret = handle_nm(file, binary, utils, ac);
     close(utils.fd);
     if (munmap(utils.ptr, st.st_size) == -1)
         return 84;
