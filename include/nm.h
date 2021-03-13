@@ -14,6 +14,6 @@ int my_nm(char *file, char *binary, int ac);
 int print_help(char *binary);
 
 int handle_nm(char *file, char *binary, utils_t utils, int ac);
-char set_symbol(int st_type, int st_bind, size_t st_value);
+char set_symbol(unsigned char st_type, int st_bind, utils_t utils);
 
 #endif /* !NM_H_ */

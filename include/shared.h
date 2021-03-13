@@ -27,6 +27,8 @@ typedef struct utils_s {
     int fd;
     bool elf_64;
     void *ptr;
+    void *shdr;
+    void *sym;
 } utils_t;
 
 int check_format(char *file, char *binary, utils_t utils);
