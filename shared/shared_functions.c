@@ -42,7 +42,7 @@ void *handle_mmap(char *file, char *binary, utils_t utils, size_t size)
         return NULL;
     }
     if ((((Elf64_Ehdr *)tmp)->e_ident[EI_CLASS] != ELFCLASS64 &&
-    ((Elf64_Ehdr *)tmp)->e_ident[EI_CLASS] != ELFCLASS32) || 
+    ((Elf64_Ehdr *)tmp)->e_ident[EI_CLASS] != ELFCLASS32) ||
     ((((Elf64_Ehdr *)tmp)->e_ident[EI_DATA] != ELFDATA2LSB &&
     ((Elf64_Ehdr *)tmp)->e_ident[EI_DATA] != ELFDATA2MSB)) ||
     (((Elf64_Ehdr *)tmp)->e_ident[EI_CLASS] == ELFCLASS64 &&

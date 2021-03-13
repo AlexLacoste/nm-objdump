@@ -11,7 +11,6 @@
 #include <unistd.h>
 #include "../include/objdump.h"
 
-
 int my_objdump(char *file, char *binary)
 {
     utils_t utils = {.fd = 0, .elf_64 = false};
